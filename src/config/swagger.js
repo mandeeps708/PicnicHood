@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Community Grocery API',
+      title: 'PicnicHood API',
       version: '1.0.0',
-      description: 'API for community-based grocery shopping',
+      description: 'API for community-based grocery shopping for Picnic',
     },
     servers: [
       {
