@@ -35,7 +35,7 @@ app.use('/api/article', articleRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Community Grocery API' });
+  res.json({ message: 'Welcome to PicnicHood API' });
 });
 
 // Error handling middleware
