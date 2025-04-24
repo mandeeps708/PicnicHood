@@ -57,11 +57,16 @@ const joinCommunity = async (req, res) => {
 
     // Convert user ID to ObjectId for comparison
     const userId = new mongoose.Types.ObjectId(req.user._id);
-    console.log(community.members);
 
     // Check if user is already a member
     if (community.members.some(member => member.user.equals(userId))) {
       return res.status(400).json({ message: 'User is already a member of this community' });
+    }
+
+    // Check if user is already in another community
+    const user = await User.findById(userId);
+    if (user.community) {
+      return res.status(400).json({ message: 'User is already a member of another community' });
     }
 
     // Add user as a new member with default delivery time
@@ -69,6 +74,10 @@ const joinCommunity = async (req, res) => {
       user: userId,
       deliveryTime: 'Morning'
     });
+
+    // Update user's community field
+    user.community = community._id;
+    await user.save();
 
     await community.save();
 
