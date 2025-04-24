@@ -30,6 +30,6 @@ const options = {
   apis: ['./src/routes/*.js'], // Path to the API routes
 };
 
-const specs = swaggerJsdoc(options);
+const swaggerSpec = swaggerJsdoc(options);
 
-module.exports = specs; 
+module.exports = swaggerSpec; 

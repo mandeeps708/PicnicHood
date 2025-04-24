@@ -7,24 +7,34 @@ const communitySchema = new mongoose.Schema({
     trim: true
   },
   members: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    deliveryTime: {
+      type: String,
+      enum: ['Morning', 'Afternoon', 'Evening'],
+      default: 'Morning'
+    }
   }],
   preferences: {
     deliveryDay: {
       type: String,
-      enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      default: 'Monday'
     },
     deliveryTime: {
       type: String,
-      // Format: "HH:MM" in 24-hour format
+      enum: ['Morning', 'Afternoon', 'Evening'],
+      default: 'Morning'
     }
   },
   location: {
     type: {
-        type: String,
-        enum: ['Point'],
-        default: 'Point'
+      type: String,
+      enum: ['Point'],
+      default: 'Point'
     },
     coordinates: {
       type: [Number], // [longitude, latitude]
@@ -38,6 +48,6 @@ const communitySchema = new mongoose.Schema({
 });
 
 // Create a geospatial index for location-based queries
-// communitySchema.index({ location: '2dsphere' });
+communitySchema.index({ location: '2dsphere' });
 
 module.exports = mongoose.model('Community', communitySchema); 
